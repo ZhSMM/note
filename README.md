@@ -8,6 +8,7 @@
 
 - [通过 Shell 进行数据库操作](notes/0001-shell-mysql.md)
 - [CentOS 替换软件源](notes/0002-centos-repository.md)
+- [Postman 的使用](notes/0003-postman.md)
 
 问题：
 
