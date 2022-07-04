@@ -115,3 +115,20 @@ if (typeof lastLogin == "undefined" || lastLogin == null || lastLogin == "" || c
 - 左下角图标：
 
   ![image-20220704223405621](https://cdn.jsdelivr.net/gh/ZhSMM/pictures//imgimage-20220704223405621.png)
+
+
+
+##### Postman第三方库
+
+参考：[https://blog.csdn.net/fantian_/article/details/106519479](https://blog.csdn.net/fantian_/article/details/106519479)
+
+```js
+// 生成MD5字符串
+var hashed  = CryptoJS.MD5("待加密的字符串").toString();
+
+// 文件转base64字符串
+s = 'Hello';
+utf8 = CryptoJS.enc.Utf8.parse(s); // 先转化成UTF-8编码的字符串
+b64 = CryptoJS.enc.Base64.stringify(utf8); // 用CryptoJS第三方库(Postman已经内置了)进行编码
+```
+
