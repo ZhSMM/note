@@ -12,4 +12,7 @@
 
 问题列表索引：
 
-1. [Markdown实现页内跳转](questions.md#1)
+1. [Markdown实现页面跳转](questions.md#1)
+   + [页内跳转](questions.md#1.1)
+   + [跨页跳转](questions.md#1.2)
+   + <a href="questions.md#1.1">页内跳转</a>
