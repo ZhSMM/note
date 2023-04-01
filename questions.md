@@ -1,16 +1,16 @@
 问题列表索引：
 
-1. [markdown实现页面跳转](#1)
-   + [页内跳转](#1_1)
-   + [跨页跳转](#1_2)
+1. [markdown实现页面跳转](#markdown实现页面跳转)
+   + [页内跳转](#页内跳转)
+   + [跨页跳转](#跨页跳转)
    + [GitHub目录/页内跳转](#GitHub目录页内跳转)
 2. 
 
 
 
-<h4 id="1">markdown实现页面跳转</h4>
+#### markdown实现页面跳转
 
-<h5 id="1_1">页内跳转</h5>
+##### 页内跳转
 
 markdown 实现页内跳转：
 
@@ -27,7 +27,7 @@ markdown 实现页内跳转：
 <a href="#1">跳转到标题</a>
 ```
 
-<h5 id="1_2">跨页跳转</h5>
+##### 跨页跳转
 
 markdown 实现跨页跳转到锚点：
 
@@ -36,7 +36,7 @@ markdown 实现跨页跳转到锚点：
    + 使用markdown的链接语法：`[点击跳转](a.md#1)`
    + 使用HTML的a标签：`<a href="a.md#1">点击跳转</a>`
 
-<h5 id="1_3">GitHub目录/页内跳转</h5>
+##### GitHub目录/页内跳转
 
 GitHub支持的语法在标准markdown语法的基础上进行了修改，称为Github Flavored Markdow(GFM)。
 
