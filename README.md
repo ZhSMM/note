@@ -13,7 +13,7 @@
 问题列表索引：
 
 1. [Markdown实现页面跳转](questions.md#1)
-   + [页内跳转](questions.md#1.1)
-   + [跨页跳转](questions.md#1.2)
-   + [GitHub目录/页内跳转](questions.md#1.3)
+   + [页内跳转](questions.md#1_1)
+   + [跨页跳转](questions.md#1_2)
+   + [GitHub目录/页内跳转](questions.md#1_3)
 
