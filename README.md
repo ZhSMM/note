@@ -17,5 +17,10 @@
    + [跨页跳转](questions.md#跨页跳转)
    + [GitHub目录/页内跳转](questions.md#GitHub目录页内跳转)
 
+#### Leetcode
 
+leetcode刷题：
+
++ [26. 删除有序数组中的重复项](leetcode.md#26.-删除有序数组中的重复项)
++ [88. 合并两个有序数组](leetcode.md#88.-合并两个有序数组)
 
