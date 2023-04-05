@@ -345,3 +345,100 @@ mysql -h"${MYSQL_HOST}" -P"${MYSQL_PORT}" -u"${MYSQL_USER}" \
       -p"${MYSQL_PWD}" -e "${select_sql}"
 ```
 
+
+
+##### mysql时区设置
+
+MySQL启动时设置时区，需要使用启动参数：`default-time-zone`
+
+```shell
+# 方式一：在启动命令中添加
+mysqld --default-time-zone='+08:00' &
+
+# 方式二：在配置文件my.cnf中添加
+[mysqld]
+default-time-zone='+08:00'
+```
+
+运行中时区的设置与查看：
+
+> time_zone参数取值：
+>
+> + 'SYSTEM'：使用系统时区
+> + '+00:00'：相对UTC时间的偏移
+> + 'Asia/Shanghai'：时区名称，如UTC等，该方法的前提是已经将时区信息导入mysql库，否则报错。导入方式：`mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -S /tmp/mysqld.sock mysql`
+
+```sql
+# 查看时区信息
+show global variables like '%time_zone%';
+
+# 修改全局时区，所有已经创建的、新创建的session都会被修改
+set global time_zone='+00:00';
+
+# 修改当前session的时区
+set session time_zone='+00:00';
+```
+
+system_time_zone：变量只有全局值没有会话值，不能动态修改，MySQL 启动时，将尝试自动确定服务器的时区，并使用它来设置 system_time_zone 系统变量， 此后该值不变。当 time_zone='system' 时，就是使用的这个时区，示例中 time_zone 就是 CST，而 CST 在 RedHat 上就是东八区：
+
+```shell
+> show global variables like '%time%zone%';
++------------------+--------+
+| Variable_name    | Value  |
++------------------+--------+
+| system_time_zone | CST    |
+| time_zone        | SYSTEM |
++------------------+--------+
+2 rows in set (0.00 sec)
+
+> date -R
+Thu, 02 Dec 2021 17:41:46 +0800
+
+> date
+2021年 12月 02日 星期四 17:41:49 CST
+```
+
+
+
+MySQL时区影响：
+
+1. `NOW()`和`CURTIME()`系统函数的返回值以及字段的`DEFAULT CURRENT_TIMESTAMP`受当前`session`的时区影响
+2. timestamp数据类型字段存储的数据受时区影响：timestamp数据类型会存储当时session的时区信息，读取时会根据当前session的时区进行转换；而datetime数据类型插入的是什么值，再读取就是什么值，不受时区影响。也可以理解为已经存储的数据是不会变的，只是 timestamp 类型数据在读取时会根据时区转换
+
+
+
+MySQL时区问答：
+
+1. MySQL的安装规范中时区如何设置：统一使用偏移量，如对于国内业务，在my.cnf中配置`default-time-zone='+08:00'`即可。
+
+2. Java应用读取到的时间和北京时间差了14个小时的原因：通常为jdbc连接参数（serverTimezone）没有指定时区属性，并且MySQL中没有设置全局时区，此时MySQL默认使用的是系统时区，即CST。此时应用与MySQL建立的连接的session time_zone为CST，而CST能代表4个时区：
+
+   + Central Standard Time (USA) UT-6:00：美国标准时间
+   + Central Standard Time (Australia) UT+9:30：澳大利亚标准时间
+   + China Standard Time UT+8:00：中国标准时间
+   + Cuba Standard Time UT-4:00：古巴标准时间
+
+   JDBC在解析CST时使用了美国标准时间，就会导致时区错误。解决方式有如下几种：
+
+   + MySQL显示设置”+08:00“时区
+   + JDBC设置正确的serverTimezone，如Asia/Shanghai，UTC+8
+
+3. 修改运行中MySQL的时区是否会影响已经存储的时间类型数据：不会影响，修改只会影响timestamp数据类型的读取（因此，表存储中不建议使用timstamp类型，建议使用datetime类型）
+
+4. 数据迁移导致的时间类型数据时区错误：针对timestamp数据类型，如mysqldump导出csv格式的数据，默认这种导出方式会使用UTC时区读取timestamp 类型数据，这意味导入时必须手工设置 session.time_zone='+00:00'才能保证时间准确
+
+   ```sql
+   --将 test.t 导出成 csv
+   mysqldump -S /data/mysql/data/3306/mysqld.sock --single-transaction \
+   --master-data=2 -t -T /data/backup/test3 --fields-terminated-by=',' test t
+   
+   --查看导出数据
+   cat /data/backup/test3/t.txt
+   ```
+
+   + mysqldump 也提供了一个参数 `--skip-tz-utc`，意思就是导出数据的那个连接不设置 UTC 时区，使用 MySQL 的`global time_zone`系统变量值。
+
+   + mysqldump导出sql文件时默认也是使用UTC时区，并且会在导出的 sql 文件头部带有 session time_zone 信息，这样可以保证导 SQL 文件导入和导出时使用相同的时区，从而保证数据的时区正确。而导出csv文件时不需要携带头信息，因此可以使用`--compact`参数去掉sql文件的所有头信息，配合`--skip-tz-utc`保证导出数据时区的准确性。
+
+   + 针对 --where="date(create_time) < date(now())" 这样的归档需求。mysqldump 如果使用上述条件导出数据，则 date(now()) 结果会 UTC 时区影响，导致导出的数据不满足要求。也应该使用 --skip-tz-utc 规避。
+
