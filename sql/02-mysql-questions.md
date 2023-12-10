@@ -28,6 +28,3 @@ MySQL 8官方文档：[https://dev.mysql.com/doc/refman/8.1/en/](https://dev.mys
     # 刷新授权表
     flush privileges;
     ```
-
-
-
