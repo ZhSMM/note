@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="ZhSMM" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>基础 - 编程笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u57fa\u7840";
+        var mkdocs_page_input_path = "python\\01_python.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 编程笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">工具</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tool/01_mkdocs/">MkDocs</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Python</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">基础</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#pip">设置pip源</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rust</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rust/01_rust%E5%9F%BA%E7%A1%80/">环境搭建</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">编程笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Python</li>
+      <li class="breadcrumb-item active">基础</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="python">python</h1>
+<h4 id="pip">设置pip源</h4>
+<p>设置pip源：</p>
+<pre><code class="language-shell"># 更新pip版本
+python -m pip install --upgrade pip
+pip3 install --upgrade pip
+
+# 查看当前源
+pip3 config list
+
+# 命令行修改源
+# 可用的pypi源列表（校园网联合镜像站）：https://mirrors.cernet.edu.cn/list/pypi
+# 豆瓣源：https://pypi.douban.com/simple/
+# 阿里云：http://mirrors.aliyun.com/pypi/simple/
+# 清华大学：https://pypi.tuna.tsinghua.edu.cn/simple/
+# 中国科技大学：https://pypi.mirrors.ustc.edu.cn/simple/
+pip3 config set global.index-url https://pypi.douban.com/simple/
+
+# 配置多个镜像源的平衡负载（使用空格隔开）
+pip config set global.extra-index-url &quot;&lt;url1&gt; &lt;url2&gt;...&quot;
+
+# 手工修改配置文件：
+# Linux： ~/.pip/pip.conf
+# Windows： %APPDATA%/pip/pip.ini
+[global]
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+extra-index-url =
+    https://mirrors.aliyun.com/pypi/simple/
+    https://mirror.baidu.com/pypi/simple
+[install]
+trusted-host = https://pypi.tuna.tsinghua.edu.cn
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../tool/01_mkdocs/" class="btn btn-neutral float-left" title="MkDocs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../rust/01_rust%E5%9F%BA%E7%A1%80/" class="btn btn-neutral float-right" title="环境搭建">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>ZhSMM</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../tool/01_mkdocs/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../rust/01_rust%E5%9F%BA%E7%A1%80/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

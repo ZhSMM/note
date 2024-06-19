@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="ZhSMM" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>MkDocs - 编程笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "MkDocs";
+        var mkdocs_page_input_path = "tool\\01_mkdocs.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 编程笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">工具</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">MkDocs</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#mkdocs_1">安装MkDocs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">创建项目</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">配置</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">扩展</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">站点发布</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Python</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../python/01_python/">基础</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rust</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rust/01_rust%E5%9F%BA%E7%A1%80/">环境搭建</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">编程笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">工具</li>
+      <li class="breadcrumb-item active">MkDocs</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="mkdocs">MkDocs快速入门</h1>
+<h4 id="mkdocs_1">安装MkDocs</h4>
+<p>MkDocs需要Python和Python package manager pip，可以使用pip进行安装：</p>
+<pre><code># 安装mkdocs
+pip install mkdocs
+
+# 检查安装
+mkdocs -V
+</code></pre>
+<h4 id="_1">创建项目</h4>
+<p>切换到指定目录，执行如下命令创建项目：</p>
+<pre><code class="language-shell">mkdocs new blog
+</code></pre>
+<p>执行成功后，会在对应目录生成blog文件夹，文件夹下有如下内容：</p>
+<ul>
+<li>mkdocs.yml：配置文件，文档结构与主题设置</li>
+<li>docs：撰写的Markdown文档</li>
+<li>index.md：默认首页</li>
+</ul>
+<p>MkDocs包含了一个内建的服务器，可以在本地预览当前文档。在项目文件夹下打开命令提示符，执行如下命令启动服务：</p>
+<pre><code class="language-shell">mkdocs serve
+</code></pre>
+<p>执行成功后，在浏览器打开 <a href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a> 进行访问。</p>
+<h4 id="_2">配置</h4>
+<p>MkDocs官方配置文档： <a href="https://www.mkdocs.org/user-guide/configuration/">https://www.mkdocs.org/user-guide/configuration/</a></p>
+<p>站点配置：</p>
+<pre><code># 站点名称
+site_name: &quot;My Notes&quot;
+# 站点URL
+site_url: &quot;http://&lt;domain&gt;:&lt;port&gt;/&lt;project&gt;&quot;
+# 站点作者
+site_author: &quot;&quot;
+# 站点描述
+site_description: &quot;&quot;
+# 版权信息
+copyright: &quot;&quot;
+# 站点仓库URL
+repo_url: &quot;&quot;
+</code></pre>
+<p>配置文档结构：</p>
+<pre><code class="language-yaml"># 默认基于docs目录，只需要填写相对路径
+# 如果不想使用默认目录，可以使用docs_dir来指定对应的文件夹名称
+nav:
+  - &quot;index.md&quot;
+  - Python:
+    - 环境搭建: &quot;python/install.md&quot;
+    - 镜像配置: &quot;python/pip.md&quot;
+  - &quot;about.md&quot;
+  - &quot;license.md&quot;
+</code></pre>
+<h4 id="_3">扩展</h4>
+<p>MkDocs 使用 <a href="https://github.com/Python-Markdown/markdown">Python-Markdown</a> 库（Markdown 规范的 Python 实现）来渲染 Markdown 内容，因此 MkDocs 中对于 Markdown 内容渲染的扩展也是来自于此。我们可以在 Python-Markdown 的 <a href="https://python-markdown.github.io/extensions/">官方文档</a> 中浏览到目前所支持的 Markdown 扩展有哪些。</p>
+<p>如使用下面配置开启对于 Markdown 内容标题的固定标识符、脚注以及表格：</p>
+<pre><code class="language-yaml">markdown_extensions:
+  - toc:
+      permalink: True
+  - footnotes
+  - tables
+</code></pre>
+<h4 id="_4">站点发布</h4>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../.." class="btn btn-neutral float-left" title="首页"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../python/01_python/" class="btn btn-neutral float-right" title="基础">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>ZhSMM</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../.." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../python/01_python/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
