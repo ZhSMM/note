@@ -92,3 +92,36 @@ markdown_extensions:
 
 
 #### 站点发布
+
+使用Github Pages发布站点：
+
+1、在Github新建仓库
+
+2、在本地MkDocs项目中初始化：
+
+```shell
+# 初始化
+git init
+
+# 将项目文件添加到暂存区
+git add .
+
+# 提交
+git commit -m "first commit"
+
+# 创建分支
+git branch -M main
+
+# 添加远端仓库
+git remote add origin git@github.com:ZhSMM/note.git
+
+# 推送
+git push -u origin main
+```
+
+3、部署，在项目根路径执行如下命令：
+
+```
+mkdocs gh-deploy
+```
+
