@@ -1,0 +1,16 @@
+site_name: 编程笔记
+site_url: http://127.0.0.1:8000/blog
+site_author: ZhSMM
+site_description: Simple is Good !
+copyright: ZhSMM
+repo_url: 
+theme: readthedocs
+
+nav:
+  - 首页: index.md
+  - 工具:
+    - MkDocs: "tool/01_mkdocs.md"
+  - Python:
+    - 基础: "python/01_python.md"
+  - Rust:
+    - 环境搭建: "rust/01_rust基础.md"
