@@ -73,6 +73,19 @@ nav:
   - "license.md"
 ```
 
+主题配置：第三方主题 [https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes](https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes)
+
+```
+# MkDocs内置主题：mkdocs、readthedocs
+theme: readthedocs
+
+# 使用第三方主题
+# 1. 下载主题
+pip install mkdocs-rtd-dropdown
+# 2. 在mkdocs.yml中配置
+theme: rtd-dropdown
+```
+
 
 
 #### 扩展
@@ -124,6 +137,3 @@ git push -u origin main
 ```
 mkdocs gh-deploy
 ```
-
-
-
