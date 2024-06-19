@@ -144,6 +144,16 @@ nav:
   - &quot;about.md&quot;
   - &quot;license.md&quot;
 </code></pre>
+<p>主题配置：第三方主题 <a href="https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes">https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes</a></p>
+<pre><code># MkDocs内置主题：mkdocs、readthedocs
+theme: readthedocs
+
+# 使用第三方主题
+# 1. 下载主题
+pip install mkdocs-rtd-dropdown
+# 2. 在mkdocs.yml中配置
+theme: rtd-dropdown
+</code></pre>
 <h4 id="_3">扩展</h4>
 <p>MkDocs 使用 <a href="https://github.com/Python-Markdown/markdown">Python-Markdown</a> 库（Markdown 规范的 Python 实现）来渲染 Markdown 内容，因此 MkDocs 中对于 Markdown 内容渲染的扩展也是来自于此。我们可以在 Python-Markdown 的 <a href="https://python-markdown.github.io/extensions/">官方文档</a> 中浏览到目前所支持的 Markdown 扩展有哪些。</p>
 <p>如使用下面配置开启对于 Markdown 内容标题的固定标识符、脚注以及表格：</p>
