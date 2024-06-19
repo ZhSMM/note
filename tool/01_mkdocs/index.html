@@ -155,32 +155,29 @@ nav:
 </code></pre>
 <h4 id="_4">站点发布</h4>
 <p>使用Github Pages发布站点：</p>
-<ol>
-<li>
-<p>在Github新建仓库</p>
-</li>
-<li>
-<p>在本地MkDocs项目中初始化：</p>
-</li>
-</ol>
-<p>```shell
-   # 初始化
-   git init</p>
-<p># 将项目文件添加到暂存区
-   git add .</p>
-<p># 提交
-   git commit -m "first commit"</p>
-<p># 创建分支
-   git branch -M main</p>
-<p># 添加远端仓库
-   git remote add origin git@github.com:ZhSMM/note.git</p>
-<p># 推送
-   git push -u origin main
-   ```</p>
-<ol>
-<li>部署，在项目根路径执行如下命令：</li>
-</ol>
-<p><code>mkdocs gh-deploy</code></p>
+<p>1、在Github新建仓库</p>
+<p>2、在本地MkDocs项目中初始化：</p>
+<pre><code class="language-shell"># 初始化
+git init
+
+# 将项目文件添加到暂存区
+git add .
+
+# 提交
+git commit -m &quot;first commit&quot;
+
+# 创建分支
+git branch -M main
+
+# 添加远端仓库
+git remote add origin git@github.com:ZhSMM/note.git
+
+# 推送
+git push -u origin main
+</code></pre>
+<p>3、部署，在项目根路径执行如下命令：</p>
+<pre><code>mkdocs gh-deploy
+</code></pre>
               
             </div>
           </div><footer>
