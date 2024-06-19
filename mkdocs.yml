@@ -1,9 +1,7 @@
 site_name: 编程笔记
-site_url: http://127.0.0.1:8000/blog
 site_author: ZhSMM
 site_description: Simple is Good !
 copyright: ZhSMM
-repo_url: 
 theme: readthedocs
 
 nav:
