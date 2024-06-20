@@ -3,22 +3,22 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="Simple is Good !" /><meta name="author" content="ZhSMM" />
-      <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>编程笔记</title>
-    <link rel="stylesheet" href="css/theme.css" />
-    <link rel="stylesheet" href="css/theme_extra.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="ZhSMM" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>泛型 - 编程笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u9996\u9875";
-        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_name = "\u6cdb\u578b";
+        var mkdocs_page_input_path = "rust\\02_\u6cdb\u578b.md";
         var mkdocs_page_url = null;
       </script>
     
     <!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
+      <script src="../../js/html5shiv.min.js"></script>
     <![endif]-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
       <script>hljs.highlightAll();</script> 
@@ -30,38 +30,32 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="." class="icon icon-home"> 编程笔记
+          <a href="../.." class="icon icon-home"> 编程笔记
         </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">首页</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#project-layout">Project layout</a>
-    </li>
-    </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">工具</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="tool/01_mkdocs/">MkDocs</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tool/01_mkdocs/">MkDocs</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Python</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="python/01_python/">基础</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../python/01_python/">基础</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Rust</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="rust/01_rust%E5%9F%BA%E7%A1%80/">环境搭建</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../01_rust%E5%9F%BA%E7%A1%80/">环境搭建</a>
                   </li>
               </ul>
       </div>
@@ -71,14 +65,14 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href=".">编程笔记</a>
+          <a href="../..">编程笔记</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">首页</li>
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">泛型</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -87,27 +81,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
-<ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
-</ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
+                <h1 id="_1">泛型</h1>
+<h4 id="_2">函数</h4>
+<pre><code class="language-rust">fn largest&lt;T: PartialOrd + Copy&gt;(list: &amp;[T]) -&gt; T {
+    let mut larger = list[0];
+    for &amp;ele in list.iter() {
+        if ele &gt; larger {
+            larger = ele;
+        }
+    }
+    larger
+}
+
+// 调用
+let list = vec![1, 3, 7, 9, 5];
+println!(&quot;{}&quot;, largest(&amp;v));
+</code></pre>
+<h4 id="_3">结构体</h4>
+<pre><code class="language-rust">#[derive(Debug)]
+struct Point&lt;U, V&gt; {
+    x: U,
+    y: V,
+}
+
+impl&lt;U, V&gt; Point&lt;U, V&gt; {
+    fn get_x(&amp;self) -&gt; &amp;U {
+        &amp;self.x
+    }
+
+    fn get_y(&amp;self) -&gt; &amp;V {
+        &amp;self.y
+    }
+}
+
+// 调用
+let point = Point { x: 12, y: 13.14 };
+println!(&quot;{:#?}&quot;, point);
+println!(&quot;{:?}&quot;, point);
+println!(
+    &quot;Point.x = {:?}, Point.y = {:?}&quot;,
+    point.get_x(),
+    point.get_y()
+);
 </code></pre>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="tool/01_mkdocs/" class="btn btn-neutral float-right" title="MkDocs">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -131,15 +150,13 @@ docs/
     
     
     
-      <span><a href="tool/01_mkdocs/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
   </span>
 </div>
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = ".";</script>
-    <script src="js/theme_extra.js"></script>
-    <script src="js/theme.js"></script>
-      <script src="search/main.js"></script>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
@@ -148,8 +165,3 @@ docs/
 
 </body>
 </html>
-
-<!--
-MkDocs version : 1.6.0
-Build Date UTC : 2024-06-20 00:13:44.396604+00:00
--->
