@@ -12,3 +12,4 @@ nav:
     - 基础: "python/01_python.md"
   - Rust:
     - 环境搭建: "rust/01_rust基础.md"
+    - 泛型: "rust/02_泛型.md"
