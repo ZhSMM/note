@@ -63,6 +63,8 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">基本数据结构</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#vec">Vec</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../05_%E6%B3%9B%E5%9E%8B/">泛型</a>
@@ -76,6 +78,8 @@
                   <li class="toctree-l1"><a class="reference internal" href="../09_%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../10_%E5%8C%85%E7%AE%A1%E7%90%86/">包管理</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../11_leetcode/">leetcode</a>
                   </li>
               </ul>
       </div>
@@ -103,6 +107,19 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">基本数据结构</h1>
+<h4 id="vec">Vec</h4>
+<p>索引是通过<code>Index</code>和<code>IndexMut</code>特征实现的，而Vec实现了<code>Index</code>和<code>IndexMut</code>，而<code>Index</code>加了索引类型应该实现的特征界限<code>SliceIndex&lt;T&gt;</code>。usize类型实现了SliceIndex，所以可以作为索引，而其他基本类型如u32没有实现该特征，因此不能作为索引。</p>
+<pre><code class="language-rust">impl&lt;T, I&gt; Index&lt;I&gt; for Vec&lt;T&gt;
+where
+    I: SliceIndex&lt;[T]&gt;
+</code></pre>
+<p>因此，在对Vec进行遍历或者索引访问时，需要使用usize作为索引，如果值不为usize，需要使用as进行类型转换：</p>
+<pre><code class="language-rust">// 通过索引进行数组访问
+let list = vec![1, 2, 3, 4];
+for i in 0..list.len() as usize {
+    println!(&quot;{}&quot;, nums1[i]);
+}
+</code></pre>
               
             </div>
           </div><footer>
