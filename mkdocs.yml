@@ -21,3 +21,4 @@ nav:
     - 特征: "rust/08_特征.md"
     - 智能指针: "rust/09_智能指针.md"
     - 包管理: "rust/10_包管理.md"
+    - leetcode: "rust/11_leetcode.md"
