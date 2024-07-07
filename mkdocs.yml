@@ -7,18 +7,19 @@ theme: readthedocs
 nav:
   - 首页: index.md
   - 工具:
-    - MkDocs: "tool/01_mkdocs.md"
+      - MkDocs: "tool/01_mkdocs.md"
+      - Linux常用命令: "tool/02_linux_command.md"
   - Python:
-    - 基础: "python/01_python.md"
+      - 基础: "python/01_python.md"
   - Rust:
-    - 环境搭建: "rust/01_环境搭建.md"
-    - 基本类型: "rust/02_基础类型.md"
-    - 基本控制流: "rust/03_基本控制流.md"
-    - 基本数据结构: "rust/04_基本数据结构.md"
-    - 泛型: "rust/05_泛型.md"
-    - 所有权与借用: "rust/06_所有权与借用.md"
-    - 字符串: "rust/07_字符串.md"
-    - 特征: "rust/08_特征.md"
-    - 智能指针: "rust/09_智能指针.md"
-    - 包管理: "rust/10_包管理.md"
-    - leetcode: "rust/11_leetcode.md"
+      - 环境搭建: "rust/01_环境搭建.md"
+      - 基本类型: "rust/02_基础类型.md"
+      - 基本控制流: "rust/03_基本控制流.md"
+      - 基本数据结构: "rust/04_基本数据结构.md"
+      - 泛型: "rust/05_泛型.md"
+      - 所有权与借用: "rust/06_所有权与借用.md"
+      - 字符串: "rust/07_字符串.md"
+      - 特征: "rust/08_特征.md"
+      - 智能指针: "rust/09_智能指针.md"
+      - 包管理: "rust/10_包管理.md"
+      - leetcode: "rust/11_leetcode.md"
