@@ -6,9 +6,13 @@ theme: readthedocs
 
 nav:
   - 首页: index.md
+  - MySQL:
+      - 视图: "mysql/01_视图.md"
   - 工具:
       - MkDocs: "tool/01_mkdocs.md"
       - Linux常用命令: "tool/02_linux_command.md"
+  - C++:
+      - 环境搭建: "c++/01_c++环境搭建.md"
   - Python:
       - 基础: "python/01_python.md"
   - Rust:

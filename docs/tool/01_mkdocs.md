@@ -10,6 +10,9 @@ pip install mkdocs
 
 # 检查安装
 mkdocs -V
+
+# 显示帮助
+mkdocs -h
 ```
 
 
