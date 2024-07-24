@@ -8,6 +8,7 @@ nav:
   - 首页: index.md
   - MySQL:
       - 视图: "mysql/01_视图.md"
+      - 存储过程: "mysql/02_存储过程和函数.md"
   - 工具:
       - MkDocs: "tool/01_mkdocs.md"
       - Linux常用命令: "tool/02_linux_command.md"
