@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="ZhSMM" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>存储过程 - 编程笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5b58\u50a8\u8fc7\u7a0b";
+        var mkdocs_page_input_path = "mysql\\02_\u5b58\u50a8\u8fc7\u7a0b\u548c\u51fd\u6570.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 编程笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MySQL</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../01_%E8%A7%86%E5%9B%BE/">视图</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">存储过程</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">应用场景</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">创建存储过程</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">创建函数</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">查看存储过程和函数</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">修改存储过程和函数</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">调用存储过程和函数</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">删除存储过程和函数</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mysql">在MySQL中使用变量</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">定义条件和处理程序</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">工具</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tool/01_mkdocs/">MkDocs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tool/02_linux_command/">Linux常用命令</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">C++</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../c%2B%2B/01_c%2B%2B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">环境搭建</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Python</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../python/01_python/">基础</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rust</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rust/01_%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">环境搭建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rust/02_%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/">基本类型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rust/03_%E5%9F%BA%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%B5%81/">基本控制流</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rust/04_%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">基本数据结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rust/05_%E6%B3%9B%E5%9E%8B/">泛型</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rust/06_%E6%89%80%E6%9C%89%E6%9D%83%E4%B8%8E%E5%80%9F%E7%94%A8/">所有权与借用</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rust/07_%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rust/08_%E7%89%B9%E5%BE%81/">特征</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rust/09_%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rust/10_%E5%8C%85%E7%AE%A1%E7%90%86/">包管理</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rust/11_leetcode/">leetcode</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">编程笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">MySQL</li>
+      <li class="breadcrumb-item active">存储过程</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">存储过程和函数</h1>
+<p>MySQL从5.0版本开始支持存储过程和函数。存储过程和函数能够将复杂的SQL逻辑封装在一起，应用程序无须关注存储过程和函数内部复杂的SQL逻辑，而只需要简单地调用存储过程和函数即可。</p>
+<h4 id="_2">应用场景</h4>
+<p>存储过程的应用场景：</p>
+<ol>
+<li>具有良好的封装性：存储过程和函数将一系列的SQL语句进行封装，经过编译后保存到MySQL数据库中，可以供应用程序反复调用，而无须关注SQL逻辑的实现细节</li>
+<li>应用程序与SQL逻辑分离：存储过程和函数中的SQL语句发生变动时，在一定程度上无须修改上层应用程序的业务逻辑，大大简化了应用程序开发和维护的复杂度</li>
+<li>让SQL具备处理能力：存储过程和函数支持流程控制处理，能够增强SQL语句的灵活性，而且使用流程控制能够完成复杂的逻辑判断和相关的运算处理</li>
+<li>减少网络交互：单独编写SQL语句在应用程序中处理业务逻辑时，需要通过SQL语句反复从数据库中查询数据并进行逻辑处理。每次查询数据时，都会在应用程序和数据库之间产生数据交互，增加了不必要的网络流量。使用存储过程和函数时，将SQL逻辑封装在一起并保存到数据库中，应用程序调用存储过程和函数，在应用程序和函数之间只需要产生一次数据交互即可，大大减少了不必要的网络带宽流</li>
+<li>能够提高系统性能：由于存储过程和函数是经过编译后保存到MySQL数据库中的，首次执行存储过程和函数后，存储过程和函数会被保存到相关的内存区域中。反复调用存储过程和函数时，只需要从对应的内存区域中执行存储过程和函数即可，大大提高了系统处理业务的效率和性能</li>
+<li>降低数据出错的概率：在实际的系统开发过程中，业务逻辑处理的步骤越多，出错的概率往往越大。存储过程和函数统一封装SQL逻辑，对外提供统一的调用入口，能够大大降低数据出错的概率</li>
+<li>保证数据的一致性和完整性：通过降低数据出错的概率，能够保证数据的一致性和完整性</li>
+<li>保证数据的安全性：在实际的系统开发过程中，需要对数据库划分严格的权限。部分人员不能直接访问数据表，但是可以为其赋予存储过程和函数的访问权限，使其通过存储过程和函数来操作数据表中的数据，从而提升数据库中数据的安全性</li>
+</ol>
+<h4 id="_3">创建存储过程</h4>
+<p>创建存储过程语法：</p>
+<pre><code class="language-sql">CREATE PROCEDURE sp_name ([proc_parameter[,...]])
+    [characteristic ...] routine_body
+</code></pre>
+<p>参数格式说明：</p>
+<ul>
+<li>CREATE PROCEDURE：创建存储过程必须使用的关键字</li>
+<li>sp_name：创建存储过程时指定的存储过程名称</li>
+<li>proc_parameter：创建存储过程时指定的参数列表，参数列表可以省略</li>
+<li>characteristic：创建存储过程时指定的对存储过程的约束</li>
+<li>routine_body：存储过程的SQL执行体，使用BEGIN…END来封装存储过程需要执行的SQL语句</li>
+</ul>
+<p>proc_parameter：在创建存储过程时指定的参数列表</p>
+<pre><code class="language-sql">[ IN | OUT | INOUT ] param_name type
+</code></pre>
+<p>参数格式说明：</p>
+<ul>
+<li>IN：当前参数为输入参数，也就是表示入参</li>
+<li>OUT：当前参数为输出参数，也就是表示出参</li>
+<li>INOUT：当前参数即可以为输入参数，也可以为输出参数，也就是即可以表示入参，也可以表示出参</li>
+<li>param_name：当前存储过程中参数的名称</li>
+<li>type：当前存储过程中参数的类型，此类型可以是MySQL数据库中支持的任意数据类型</li>
+</ul>
+<p>characteristic：表示创建存储过程时指定的对存储过程的约束条件</p>
+<pre><code class="language-sql">LANGUAGE SQL
+  | [NOT] DETERMINISTIC
+  | { CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA }
+  | SQL SECURITY { DEFINER | INVOKER }
+  | COMMENT 'string'
+</code></pre>
+<p>参数格式说明：</p>
+<ul>
+<li>LANGUAGE SQL：存储过程的SQL执行体部分（存储过程语法格式中的routine_body部分）是由SQL语句组成的</li>
+<li>[NOT] DETERMINISTIC：执行当前存储过程后，得出的结果数据是否确定<ul>
+<li>DETERMINISTIC：执行当前存储过程后得出的结果数据是确定的，即对于当前存储过程来说，每次输入相同的数据时，都会得到相同的输出结果</li>
+<li>NOT DETERMINISTIC：默认值。执行当前存储过程后，得出的结果数据是不确定的，即对于当前存储过程来说，每次输入相同的数据时，得出的输出结果可能不同</li>
+</ul>
+</li>
+<li>{CONTAINS SQL | NO SQL | READS SQL DATA |MODIFIES SQL DATA}：存储过程中的子程序使用SQL语句的约束限制<ul>
+<li>CONTAINS SQL：默认值。当前存储过程的子程序包含SQL语句，但是并不包含读写数据的SQL语句</li>
+<li>NO SQL：当前存储过程的子程序中不包含任何SQL语句</li>
+<li>READS SQL DATA：当前存储过程的子程序中包含读数据的SQL语句</li>
+<li>MODIFIES SQL DATA：当前存储过程的子程序中包含写数据的SQL语句</li>
+</ul>
+</li>
+<li>SQL SECURITY {DEFINER | INVOKER}：执行当前存储过程的权限，即指明哪些用户能够执行当前存储过程<ul>
+<li>DEFINER：默认值。只有当前存储过程的创建者或者定义者才能执行当前存储过程</li>
+<li>INVOKER：拥有当前存储过程的访问权限的用户能够执行当前存储过程</li>
+</ul>
+</li>
+<li>COMMENT 'string'：表示当前存储过程的注释信息，解释说明当前存储过程的含义</li>
+</ul>
+<p>注意：在MySQL的存储过程中允许包含DDL的SQL语句，允许执行Commit（提交）操作，也允许执行Rollback（回滚）操作，但是不允许执行LOAD DATA INFILE语句。在当前存储过程中，可以调用其他存储过程或者函数。</p>
+<p>示例：创建一个简单的存储过程</p>
+<pre><code class="language-sql"># 设置MySQL的语句结束符为$$
+# MySQL默认的语句结束符为分号（;），如果不设置MySQL数据库的语句结束符，则存储过程中的SQL语句的结束符会与MySQL数据库默认的语句结束符相冲突
+DELIMITER $$
+
+# 创建存储过程：使用设置的语句结束符结束存储过程定义
+CREATE PROCEDURE SelectAllData()
+BEGIN
+  SELECT * FROM users;
+END $$
+
+# 恢复默认的语句结束符
+DELIMITER ;
+
+# 调用存储过程
+call SelectAllData();
+</code></pre>
+<h4 id="_4">创建函数</h4>
+<p>创建函数的语法格式：</p>
+<pre><code class="language-sql">CREATE FUNCTION func_name ([func_parameter[,...]])
+    RETURNS type
+    [characteristic ...] routine_body
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>CREATE FUNCTION：创建函数必须使用的关键字</li>
+<li>func_name：创建函数时指定的函数名称</li>
+<li>func_parameter：创建函数时指定的参数列表，参数列表可以省略</li>
+<li>RETURNS type：创建函数时指定的返回数据类型</li>
+<li>characteristic：创建函数时指定的对函数的约束</li>
+<li>routine_body：函数的SQL执行体</li>
+</ul>
+<p>详细参数说明与存储过程一致，唯独存在如下区别：</p>
+<ul>
+<li>存储过程的参数列表支持IN、OUT、INOUT类型</li>
+<li>存储函数的参数列表仅支持IN类型，且不需要声明</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-sql"># 定义函数
+DELIMITER $$
+
+CREATE FUNCTION FuncSelectById(id int)
+  RETURNS varchar(50)
+    READS SQL DATA
+  RETURN (SELECT username FROM users WHERE userid = id);
+$$
+
+DELIMITER ;
+
+# 调用函数
+SELECT FuncSelectById(1);
+</code></pre>
+<h4 id="_5">查看存储过程和函数</h4>
+<pre><code class="language-sql"># 查看存储过程和函数的创建或定义信息
+# sp_name：存储过程或函数名称
+SHOW CREATE {PROCEDURE | FUNCTION} sp_name
+
+# 查看存储过程和函数的状态信息
+# [LIKE 'pattern']：匹配存储过程或函数名称，省略时查询所有存储过程或函数信息
+SHOW {PROCEDURE | FUNCTION} STATUS [LIKE 'pattern']
+
+# 从数据库中查看存储过程和函数的信息：information_schema.ROUTINES
+# 精确查询
+SELECT * FROM information_schema.ROUTINES where 
+  ROUTINE_NAME = 'sp_name' [and ROUTINE_TYPE = {'PROCEDURE|FUNCTION'}];
+# 模糊查询
+SELECT * FROM information_schema.ROUTINES where 
+  ROUTINE_NAME LIKE 'sp_name' [and ROUTINE_TYPE = {'PROCEDURE|FUNCTION'}];
+</code></pre>
+<h4 id="_6">修改存储过程和函数</h4>
+<p>创建存储过程和函数后，可以通过ALTER语句修改存储过程和函数的某些特性：</p>
+<pre><code class="language-sql"># 修改存储过程
+# 修改时characteristic与创建时相比，不支持[NOT] DETERMINISTIC选项
+ALTER PROCEDURE sp_name [characteristic ...]
+
+# 修改函数，具体参数同创建时
+ALTER FUNCTION func_name [characteristic ...]
+</code></pre>
+<h4 id="_7">调用存储过程和函数</h4>
+<pre><code class="language-sql"># 调用存储过程
+# CALL：调用存储过程的关键字
+# proc_name：调用存储过程的名称
+# parameter：存储过程定义的参数列表，当创建存储过程时没有定义参数列表，则参数列表为空
+CALL proc_name ([parameter[,…]])
+
+# IN变量：传入变量进入存储过程后如果参数被修改不会返回到用户的会话变量
+set @id=1;
+call selectById(@id); # 假如存储过程中修改了@id=2
+select @id; # 此处仍然是1
+
+# OUT或INOUT变量：必须传入局部变量，且修改会返回到用户的会话变量
+set @name='';
+call selectById(1, @name);
+
+# 调用函数
+# SELECT：调用函数的关键字，也是查询数据的关键字
+# func_name：调用的函数名称
+# parameter：调用函数的参数列表，当创建函数时没有定义参数列表，则参数列表为空
+SELECT func_name ([parameter[,…]])
+</code></pre>
+<h4 id="_8">删除存储过程和函数</h4>
+<pre><code class="language-sql"># 删除存储过程
+# [IF EXISTS]：当需要删除的存储过程不存在时不会报错
+DROP PROCEDURE [IF EXISTS] proc_name;
+
+# 删除存储函数
+DROP FUNCTION [IF EXISTS] func_name;
+</code></pre>
+<h4 id="mysql">在MySQL中使用变量</h4>
+<p>MySQL中变量主要分为如下三种：</p>
+<ul>
+<li>系统变量</li>
+<li>用户变量</li>
+<li>局部变量</li>
+</ul>
+<p>系统变量分为全局变量和会话变量：</p>
+<ul>
+<li>全局变量：启动时由服务器初始化，由配置文件my.ini或my.cnf配置，对全局变量修改影响整个MySQL服务</li>
+<li>会话变量：建立新连接时初始化，默认会将当前所有全局变量的值复制一份作为会话变量，对会话变量修改仅影响当前会话</li>
+</ul>
+<p>系统变量相关操作：</p>
+<pre><code class="language-sql"># 查看全局变量
+show global variables;
+
+# 查看具体的全局变量
+elect  @@gloabal.变量名;
+
+# 修改全局变量的值
+set gloabal 变量名 = ;
+
+# 查看会话变量
+show session variables;
+
+# 查看某会话变量
+select @@session.变量名;
+
+# 修改会话变量值
+set session 变量名 = ;
+</code></pre>
+<p>用户变量：当前会话连接有效</p>
+<pre><code class="language-sql"># 定义用户变量
+SET @变量名;
+SET @变量名 = '李四';
+
+# 查询用户变量
+SELECT @变量名;
+</code></pre>
+<p>局部变量：在MySQL数据库的存储过程和函数中，可以使用局部变量来存储查询或计算的中间结果数据，或者输出最终的结果数据。</p>
+<p>局部变量定义：在MySQL数据库中，可以使用DECLARE语句定义一个局部变量，变量的作用域为BEGIN…END语句块，变量也可以被用在嵌套的语句块中。</p>
+<ul>
+<li>变量的定义需要写在复合语句的开始位置，并且需要在任何其他语句的前面</li>
+<li>定义变量时，可以一次声明多个相同类型的变量，也可以使用DEFAULT为变量赋予默认值</li>
+</ul>
+<p>局部变量定义的语法格式：</p>
+<pre><code class="language-sql">DECLARE var_name[,...] type [DEFAULT value]
+</code></pre>
+<p>格式说明：</p>
+<ul>
+<li>DECLARE：定义变量使用的关键字</li>
+<li>var_name[,...]：定义的变量名称，可以一次声明多个相同类型的变量</li>
+<li>type：定义变量的数据类型，此类型可以是MySQL数据库中支持的任意数据类型</li>
+<li>[DEFAULT value]：定义变量的默认值，可以省略，如果没有为变量指定默认值，默认值为NULL</li>
+</ul>
+<p>局部变量赋值：定义变量后，可以为变量进行赋值操作。变量可以直接赋值，也可以通过查询语句赋值。</p>
+<pre><code class="language-sql"># 使用SET语句为变量直接赋值
+# SET：为变量赋值的关键字
+# var_name：变量名称
+# expr：变量的值，可以是一个常量，也可以是一个表达式
+SET var_name = expr [, var_name = expr] ...
+
+# 赋值示例
+SET price = 29.99;
+SET price = (29.99 * 1.5);
+
+# 通过查询语句赋值：使用查询语句为变量赋值时，要求查询语句返回的结果数据必须只有一行
+# table_expr：查询表数据时使用的查询条件，查询条件中包含表名称和WHERE语句
+SELECT col_name[,...] INTO var_name[,...] table_expr
+
+# 赋值示例
+SELECT SUM(price) INTO totalprice FROM t_goods;
+</code></pre>
+<h4 id="_9">定义条件和处理程序</h4>
+<p>MySQL数据库支持定义条件和处理程序。</p>
+<ul>
+<li>定义条件就是提前将程序执行过程中遇到的问题及对应的状态等信息定义出来，在程序执行过程中遇到问题时，可以返回提前定义好的条件信息</li>
+<li>处理程序能够定义在程序执行过程中遇到问题时应该采取何种处理方式来保证程序能够继续执行</li>
+</ul>
+<p>定义条件语法：</p>
+<pre><code class="language-sql"># condition_name：定义的条件名称
+# condition_value：定义的条件类型
+DECLARE condition_name CONDITION FOR condition_value
+
+# condition_value取值：
+# sqlstate_value：长度为5的字符串类型的错误信息
+# mysql_error_code：数值类型的错误代码
+SQLSTATE [VALUE] sqlstate_value | mysql_error_code
+
+# 触发自定义条件
+# 在异常处理部分可以使用RESIGNAL重新引发之前捕获的异常
+SIGNAL condition_value | condition_name SET MESSAGE_TEXT = '自定义异常消息';
+</code></pre>
+<p>示例：</p>
+<pre><code class="language-sql"># 定义ERROR 2199(48000)错误条件，名称为exec_refused
+# 使用sqlstate_value进行定义
+DECLARE exec_refused CONDITION FOR SQLSTATE '48000';
+
+# 使用mysql_error_code进行定义
+DECLARE exec_refused CONDITION FOR 2199;
+</code></pre>
+<p>定义处理程序：</p>
+<pre><code class="language-sql"># handler_type：定义的错误处理方式
+# condition_value：定义的错误类型
+# sp_statement：当遇到定义的错误时，需要执行的存储过程或函数
+DECLARE handler_type HANDLER FOR condition_value[,...] sp_statement
+
+# handler_type取值：
+# CONTINUE：遇到错误时，不进行处理，继续向后执行
+# EXIT：遇到错误时，立刻退出程序
+# UNDO：遇到错误时，撤回之前的操作。注意：目前MySQL数据库还不支持UNDO操作。
+CONTINUE | EXIT | UNDO
+
+# condition_value取值：
+# STATE [VALUE] sqlstate_value：长度为5的字符串类型的错误信息
+# condition_name：定义的条件名称
+# SQLWARNING：所有以01开头的SQLSTATE错误代码
+# NOT FOUND：所有以02开头的SQLSTATE错误代码
+# SQLEXCEPTION：所有没有被SQLWARNING或NOT FOUND捕获的SQLSTATE错误代码
+# mysql_error_code：数值类型的错误代码
+SQLSTATE [VALUE] sqlstate_value
+  | condition_name
+  | SQLWARNING
+  | NOT FOUND
+  | SQLEXCEPTION
+  | mysql_error_code
+</code></pre>
+<p>示例：</p>
+<pre><code class="language-sql"># 定义处理程序捕获sqlstate_value值，当遇到sqlstate_value值为29011时，
+# 执行CONTINUE操作，并且输出DATABASE NOT FOUND信息
+DECLARE CONTINUE HANDLER FOR SQLSTATE '29011' SET @log=' DATABASE NOT FOUND';
+
+# 定义处理程序捕获mysql_error_code的值，当遇到mysql_error_code的值为1162时，
+# 执行CONTINUE操作，并且输出SEARCH FAILED信息
+DECLARE CONTINUE HANDLER FOR 1162 SET @log=' SEARCH FAILED';
+
+# 先定义search_failed条件，捕获mysql_error_code的值，
+# 当遇到mysql_error_code的值为1162时，执行CONTINUE操作。
+# 接下来定义处理程序，调用search_failed条件，并输出SEARCH FAILED信息
+DECLARE search_failed CONDITION FOR 1162;
+DECLARE CONTINUE HANDLER FOR search_failed SET @log=' SEARCH FAILED';
+
+# 使用SQLWARNING捕获所有以01开头的sqlstate_value错误代码，
+# 执行CONTINUE操作，并输出SQLWARNING信息
+DECLARE CONTINUE HANDLER FOR SQLWARNING SET @log=' SQLWARNING';
+
+# 使用NOT FOUND捕获所有以02开头的sqlstate_value错误代码，
+# 执行EXIT操作，并输出SQL EXIT信息
+DECLARE EXIT HANDLER FOR NOT FOUND SET @log=' SQL EXIT';
+
+# 使用SQLEXCEPTION捕获所有没有被SQLWARNING或NOT FOUND
+# 捕获的sqlstate_value错误代码，执行EXIT操作，并输出SQLEXCEPTION信息
+DECLARE EXIT HANDLER FOR SQLEXCEPTION SET @log=' SQLEXCEPTION';
+</code></pre>
+<p>注意：带有@符号的变量（比如@log）是用户变量，可以使用SET语句进行赋值，用户变量与MySQL的连接有关。在一个客户端的连接会话中定义的用户变量，只能在此连接会话中可见并使用，当此连接会话关闭时，该连接会话中创建的所有变量都会被自动释放。</p>
+<p>示例：自定义一个异常类型，并在存储过程中抛出处理</p>
+<pre><code class="language-sql">DROP PROCEDURE IF EXISTS funcTestProc;
+DELIMITER $$
+
+CREATE PROCEDURE funcTestProc()
+BEGIN
+    DECLARE exec_refused CONDITION FOR SQLSTATE '48000';
+    # ERROR 1062 (23000): Duplicate entry '' for key 'PRIMARY'
+    # 处理主键冲突
+    DECLARE CONTINUE HANDLER FOR SQLSTATE '23000' SELECT 'Error, duplicate key occurred';
+    DECLARE CONTINUE HANDLER FOR exec_refused SELECT 'Error, exec_refused occurred';
+
+    INSERT INTO `users` (`userid`, `username`, `phonenum`, `address`) VALUES (1, 'lisi', '18576485247', 'Shanghai');
+    # 抛出自定义异常
+    SIGNAL exec_refused SET MESSAGE_TEXT='custom exception';
+END $$
+
+# 恢复默认的语句结束符
+DELIMITER ;
+
+# 调用存储过程
+call funcTestProc();
+</code></pre>
+<p>示例：获取存储过程执行出错的原始信息，<a href="https://stackoverflow.com/questions/26338033/mysql-stored-procedure-print-error-message-and-rollback">stackoverflow</a></p>
+<pre><code class="language-sql"># 适用于5.6.4之后的版本
+CREATE  PROCEDURE PROCNAME (
+    IN  `ID` INT(11),
+    OUT `MESSAGE` VARCHAR(500), 
+    OUT `Q_STATUS` BOOLEAN)
+BEGIN
+ -- Error handling start here
+ DECLARE EXIT HANDLER FOR SQLEXCEPTION
+ BEGIN
+    GET DIAGNOSTICS CONDITION 1 @ERRNO = MYSQL_ERRNO, @MESSAGE_TEXT = MESSAGE_TEXT;
+    SET MESSAGE = CONCAT(@MESSAGE_TEXT, &quot; : Erro code - &quot;, @ERRNO);
+    SET Q_STATUS= 0;
+    ROLLBACK; -- if any error occures it will rollback changes
+ END;
+
+ -- main query start here
+ START TRANSACTION;
+ SELECT IAM, ID; -- THIS WILL CAUSE OF ERROR 'UNKNOWN COLUMN IAM'
+ SET Q_STATUS = 1; -- IF NO ERROR QUERY STATUS WILL GIVE YOU 1
+ COMMIT; -- it is necessary in transaction 
+
+END;
+
+# 适用于5.6.4之前的版本
+CREATE PROCEDURE procedure_name() 
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        SHOW ERRORS;  --this is the only one which you need
+        ROLLBACK;   
+    END; 
+    START TRANSACTION;
+        --query 1
+        --query 2
+        --query 3
+    COMMIT;
+END
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../01_%E8%A7%86%E5%9B%BE/" class="btn btn-neutral float-left" title="视图"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../tool/01_mkdocs/" class="btn btn-neutral float-right" title="MkDocs">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>ZhSMM</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../01_%E8%A7%86%E5%9B%BE/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../tool/01_mkdocs/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
