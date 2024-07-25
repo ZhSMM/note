@@ -67,6 +67,12 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_9">定义条件和处理程序</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">游标</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_11">控制流</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sql">动态SQL</a>
+    </li>
     </ul>
                   </li>
               </ul>
@@ -528,6 +534,143 @@ BEGIN
         --query 3
     COMMIT;
 END
+</code></pre>
+<h4 id="_10">游标</h4>
+<p>游标：用于在存储过程和函数中循环处理结果集</p>
+<pre><code class="language-sql"># 声明游标
+# cursor_name：声明的游标名称
+# select_statement：SELECT查询语句的内容，返回一个创建游标结果数据的集合
+DECLARE cursor_name CURSOR FOR select_statement
+
+# 打开游标
+OPEN cursor_name;
+
+# 声明游标
+# cursor_name：之前声明的游标名称
+# var_name：接收创建游标时定义的查询语句的结果数据，可以定义多个var_name
+#   注意：var_name必须在声明游标之前定义好。
+FETCH cursor_name INTO var_name [, var_name] ...
+
+# 关闭游标
+CLOSE cursor_name;
+</code></pre>
+<p>示例：</p>
+<pre><code class="language-sql">DELIMITER //
+
+CREATE PROCEDURE ProcessAllRows()
+BEGIN
+    -- 声明游标
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE example_data VARCHAR(255);
+    DECLARE cur CURSOR FOR SELECT column_name FROM your_table;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    -- 打开游标
+    OPEN cur;
+
+    -- 循环遍历结果集
+    read_loop: LOOP
+        FETCH cur INTO example_data;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+        -- 在这里处理每一行的数据
+        -- 例如，你可以打印数据或进行其他操作
+        SELECT example_data;
+    END LOOP;
+
+    -- 关闭游标
+    CLOSE cur;
+END //
+DELIMITER ;
+</code></pre>
+<h4 id="_11">控制流</h4>
+<p>MySQL数据库支持在存储过程或函数中使用IF语句、CASE语句、LOOP语句、LEAVE语句、ITERATE语句、REPEAT语句和WHILE语句进行流程的控制。</p>
+<p>IF语句能够根据条件判断的结果为TRUE或者FALSE来执行相应的逻辑：</p>
+<pre><code class="language-sql"># 如果相应的search_condition条件为TRUE，则对应的statement_list语句将被执行；
+# 否则执行ELSE语句对应的statement_list语句。
+IF search_condition THEN statement_list
+    [ELSEIF search_condition THEN statement_list] ...
+    [ELSE statement_list]
+END IF
+</code></pre>
+<p>CASE支持两种语法格式：</p>
+<pre><code class="language-sql"># case_value表示条件表达式，根据case_value的值，执行相应的WHEN语句。
+# when_value为case_value可能的值，如果某个when_value的值与case_value的值相同，
+# 则会执行当前when_value对应的THEN后面的statement_list语句；如果没有when_value的值与case_value的值相同，
+# 则执行ELSE语句对应的statement_list语句。
+CASE case_value
+    WHEN when_value THEN statement_list
+    [WHEN when_value THEN statement_list] ...
+    [ELSE statement_list]
+END CASE
+
+# search_condition为条件判断语句，当某个search_condition语句为TRUE时，执行对应的THEN后面的statement_list语句；
+# 如果search_condition语句都为FALSE，则执行ELSE对应的statement_list语句
+CASE
+    WHEN search_condition THEN statement_list
+    [WHEN search_condition THEN statement_list] ...
+    [ELSE statement_list]
+END CASE
+</code></pre>
+<p>LOOP语句能够循环执行某些语句，而不进行条件判断，可以使用LEAVE语句退出LOOP循环：</p>
+<pre><code class="language-sql"># begin_label和end_label都是LOOP语句的标注名称，该参数可以省略。
+# 如果begin_label和end_label两者都出现，则它们必须是相同的。
+[begin_label:] LOOP
+    statement_list
+END LOOP [end_label]
+
+# LEAVE用于从被标注的流程结果中退出
+# label：表示被标注的流程标志
+LEAVE label
+
+# ITERATE语句表示跳过本次循环，而执行下次循环操作，只可以出现在LOOP、REPEAT和WHILE语句内
+# label：表示被标注的流程标志
+ITERATE label
+</code></pre>
+<p>REPEAT语句会创建一个带有条件判断的循环语句，每次执行循环体时，都会对条件进行判断，如果条件判断为TRUE，则退出循环，否则继续执行循环体：</p>
+<pre><code class="language-sql"># begin_label和end_label为循环的标志，二者可以省略，如果二者同时出现，则必须相同。
+# 当search_condition条件判断为TRUE时，退出循环
+[begin_label:] REPEAT
+    statement_list
+UNTIL search_condition
+END REPEAT [end_label]
+</code></pre>
+<p>WHILE语句同样可以创建一个带有条件判断的循环语句。与REPEAT语句不同，WHILE语句的条件判断为TRUE时，继续执行循环体：</p>
+<pre><code class="language-sql"># begin_label和end_label为循环的标志，二者可以省略，如果二者同时出现，则必须相同。
+# 当search_condition条件判断为TRUE时，继续执行循环体
+[begin_label:] WHILE search_condition DO
+    statement_list
+END WHILE [end_label]
+</code></pre>
+<h4 id="sql">动态SQL</h4>
+<p>在存储过程或函数中执行动态SQL，可以使用预处理语句：</p>
+<pre><code class="language-sql"># 获取预处理语句，预处理语句可以使用concat函数拼接，占位符使用问号?
+PREPARE stmt_name FROM preparable_stmt;
+
+# 执行预处理语句，可以使用用户变量
+EXECUTE stmt_name [USING @var_name [, @var_name] ...];
+
+# 释放预处理资源
+{DEALLOCATE | DROP} PREPARE stmt_name;
+</code></pre>
+<p>示例：</p>
+<pre><code class="language-sql">SET @table_name := 'abc';
+SET @value := '2023';
+SET @sql_query := CONCAT('SELECT * FROM ', @table_name, ' WHERE column = ?');
+
+PREPARE dynamic_statement FROM @sql_query;
+EXECUTE dynamic_statement USING @value;
+DEALLOCATE PREPARE dynamic_statement;
+
+# 杀死特定用户连接
+CREATE PROCEDURE kill_all_for_user(user_connection_id INT)
+BEGIN
+  SET @sql_statement := CONCAT('KILL ', user_connection_id);
+  PREPARE dynamic_statement FROM @sql_statement;
+  EXECUTE dynamic_statement;
+END;
 </code></pre>
               
             </div>
