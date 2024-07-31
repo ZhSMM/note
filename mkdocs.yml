@@ -6,9 +6,14 @@ theme: readthedocs
 
 nav:
   - 首页: index.md
+  - java:
+    - 基础: "java/01_java基础.md"
+    - JVM监控工具: "java/02_jvm监控工具.md"
   - MySQL:
       - 视图: "mysql/01_视图.md"
       - 存储过程: "mysql/02_存储过程和函数.md"
+      - 触发器: "mysql/03_触发器.md"
+      - 分区: "mysql/04_分区.md"
   - 工具:
       - MkDocs: "tool/01_mkdocs.md"
       - Linux常用命令: "tool/02_linux_command.md"
