@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="ZhSMM" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>视图 - 编程笔记</title>
+    <title>分区 - 编程笔记</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u89c6\u56fe";
-        var mkdocs_page_input_path = "mysql\\01_\u89c6\u56fe.md";
+        var mkdocs_page_name = "\u5206\u533a";
+        var mkdocs_page_input_path = "mysql\\04_\u5206\u533a.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -52,25 +52,23 @@
               </ul>
               <p class="caption"><span class="caption-text">MySQL</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">视图</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_2">定义</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">应用场景</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">创建或修改视图</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_5">查看视图</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_6">删除视图</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../01_%E8%A7%86%E5%9B%BE/">视图</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../02_%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%92%8C%E5%87%BD%E6%95%B0/">存储过程</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../03_%E8%A7%A6%E5%8F%91%E5%99%A8/">触发器</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../04_%E5%88%86%E5%8C%BA/">分区</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">分区</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">查看是否支持分区操作</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">分区优势</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">分区类型</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#range">RANGE分区</a>
+    </li>
+    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">工具</span></p>
@@ -130,7 +128,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">MySQL</li>
-      <li class="breadcrumb-item active">视图</li>
+      <li class="breadcrumb-item active">分区</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -139,124 +137,74 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">视图</h1>
-<h4 id="_2">定义</h4>
-<p>视图本质上是一个虚拟表，它可以由数据库中的一张表或者多张表组合而成，视图从结构上也包含行和列。</p>
-<ul>
-<li>可以对视图中的数据进行增加、删除、修改、查看等操作，也可以对视图的结构进行修改</li>
-<li>在数据库中，视图不会保存数据，数据真正保存在数据表中。<strong>当对视图中的数据进行增加、删除和修改操作时，数据表中的数据会相应地发生变化；反之亦然。对视图的增删改查操作与操作普通表一致</strong></li>
-</ul>
-<h4 id="_3">应用场景</h4>
-<p>视图的应用场景：</p>
-<ul>
-<li>数据安全：MySQL根据权限将用户对数据的访问限制在某些数据的结果集上，而这些数据的结果集可以使用视图来实现。因此，可以根据权限将用户对数据的访问限制在某些视图上，而不必直接查询或操作数据表，这在一定程度上保障了数据表中数据的安全性</li>
-<li>数据独立：视图创建完成后，视图的结构就被确定了，当数据表的结构发生变化时不会影响视图的结构。当数据表的字段名称发生变化时，只需要简单地修改视图的查询语句即可，而不会影响用户对数据的查询操作</li>
-<li>适应灵活多变的需求：当业务系统的需求发生变化后，如果需要改动数据表的结构，则工作量相对较大，可以使用视图来减少改动的工作量</li>
-<li>能够分解复杂的查询逻辑：数据库中如果存在复杂的查询逻辑，则可以将问题进行分解，创建多个视图获取数据，再将创建的多个视图结合起来，完成复杂的查询逻辑</li>
-</ul>
-<h4 id="_4">创建或修改视图</h4>
-<p>语法格式：</p>
-<pre><code class="language-sql"># 创建或更新视图
-CREATE
-    [OR REPLACE]
-    [ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}]
-    [DEFINER = user]
-    [SQL SECURITY { DEFINER | INVOKER }]
-    VIEW view_name [(column_list)]
-    AS select_statement
-    [WITH [CASCADED | LOCAL] CHECK OPTION]
+                <h1 id="_1">分区</h1>
+<p>分区是指将一张表中的数据和索引分散存储到同一台计算机或不同计算机磁盘上的多个文件中。分区操作对于上层访问是透明的，用户访问MySQL中的分区表时，不必关心当前访问的数据存储到数据表的哪个分区中。对MySQL中的数据表进行分区也不会影响上层的业务逻辑。</p>
+<h4 id="_2">查看是否支持分区操作</h4>
+<pre><code class="language-sql"># 查看数据库是否支持分区操作
+# MySQL 5.6以下版本
+SHOW VARIABLES LIKE '%partition%';
 
-# 修改视图
-ALTER
-    [ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}]
-    [DEFINER = user]
-    [SQL SECURITY { DEFINER | INVOKER }]
-    VIEW view_name [(column_list)]
-    AS select_statement
-    [WITH [CASCADED | LOCAL] CHECK OPTION]
+# MySQL 5.7以上版本：partition显示ACTIVE
+SHOW PLUGINS;
 </code></pre>
-<p>语法格式说明：</p>
+<p>在MySQL 5.7及以下的版本中，支持使用大部分存储引擎创建分区表，例如可以使用MyISAM、InnoDB和Memory等存储引擎创建分区表，其他诸如MERGE、CSV等存储引擎不支持创建分区表。</p>
+<p>在MySQL 5.1版本中，同一张数据表的所有分区必须使用同一个存储引擎，即一张数据表中不能对一个分区使用一种存储引擎，而对另一个分区使用其他存储引擎。</p>
+<p>在MySQL 8.x版本中，MyISAM存储引擎已经不允许再创建分区表了，只能为实现了本地分区策略的存储引擎创建分区表，截至MySQL 8.0.18版本，只有InnoDB和NDB存储引擎支持创建分区表。</p>
+<h4 id="_3">分区优势</h4>
+<p>分区表的优势：</p>
+<ol>
+<li>存储更多的数据</li>
+<li>优化查询：分区后，在WHERE条件语句中包含分区条件时，能够只扫描符合条件的一个或多个分区来查询数据，而不必扫描整个数据表中的数据，从而提高了数据查询的效率</li>
+<li>并行处理：当查询语句中涉及SUM()、COUNT()、AVG()、MAX()和MIN()等聚合函数时，可以在每个分区上进行并行处理，再统计汇总每个分区得出的结果，从而得出最终的汇总结果数据，整体上提高了数据查询与统计的效率</li>
+<li>快速删除数据：如果数据表中的数据已经过期，或者不需要再存储到数据表中，可以通过删除分区的方式快速删除数据表中的数据。删除分区比删除数据表中的数据在效率上要高得多</li>
+<li>更大的数据吞吐量：分区后，能够跨多个磁盘分散数据查询，每个查询之间可以并行进行，能够获得更大的查询吞吐量，提升数据查询的性能</li>
+</ol>
+<h4 id="_4">分区类型</h4>
+<p>在MySQL所有的分区类型中，进行分区的数据表可以不存在主键或者唯一键；如果存在主键或者唯一键，则不能使用主键或唯一键之外的其他字段进行分区操作。</p>
+<p>MySQL的分区类型：</p>
 <ul>
-<li>CREATE：新建视图</li>
-<li>REPLACE：替换已经存在的视图</li>
-<li>ALGORITHM：标识视图使用的算法<ul>
-<li>UNDEFINED：MySQL自动选择算法</li>
-<li>MERGE：将引用视图的语句与视图定义进行合并</li>
-<li>TEMPTABLE：表示将视图的结果放置到临时表中，接下来使用临时表执行相应的SQL语句</li>
+<li>RANGE分区：根据一个连续的区间范围，将数据分散存储于不同的分区，支持对字段名或表达式进行分区</li>
+<li>LIST分区：根据给定的值列表，将数据分散存储到不同的分区，支持对字段名或表达式进行分区</li>
+<li>HASH分区：根据给定的分区个数，结合一定的HASH算法，将数据分散存储到不同的分区，可以使用用户自定义的函数</li>
+<li>KEY分区：与HASH分区类似，但是只能使用MySQL自带的HASH函数</li>
+<li>COLUMNS分区：为解决MySQL 5.5版本之前RANGE分区和LIST分区只支持整数分区而在MySQL 5.5版本新引入的分区类型</li>
+<li>子分区：对数据表中的每个分区再次进行分区</li>
 </ul>
-</li>
-<li>DEFINER：定义视图的用户</li>
-<li>SQL SECURITY：安全级别<ul>
-<li>DEFINER：只有创建视图的用户才能访问视图</li>
-<li>NVOKER：具有相应权限的用户能够访问视图</li>
+<p>注意：RANGE分区与LIST分区有一定的相似性，RANGE分区是基于一个连续的区间范围分区，而LIST分区是基于一个给定的值列表进行分区；HASH分区与KEY分区类似，HASH分区既可以使用MySQL本身提供的HASH函数进行分区，也可以使用用户自定义的表达式分区，而KEY分区只能使用MySQL本身提供的函数进行分区。</p>
+<h4 id="range">RANGE分区</h4>
+<p>RANGE分区是根据连续不间断的取值范围进行分区，并且每个分区中的取值范围不能重叠，可以使用VALUES LESS THAN语句定义分区区间。</p>
+<ul>
+<li>分区名称不区分大小写，即不能创建只有大小写不同的相同分区</li>
 </ul>
-</li>
-<li>view_name：创建的视图名称</li>
-<li>column_list：视图中包含的字段名称列表</li>
-<li>select_statement：SELECT语句</li>
-<li>[WITH [CASCADED | LOCAL] CHECK OPTION]：保证在视图的权限范围内更新视图</li>
-</ul>
-<p>示例：</p>
-<pre><code class="language-sql">CREATE TABLE users (
-  userid int primary key,
-  username varchar(50),
-  phonenum varchar(25),
-  address varchar(125)
+<pre><code class="language-sql">CREATE TABLE t_members (
+    id INT NOT NULL,
+    first_name VARCHAR(30),
+    last_name VARCHAR(30),
+    join_date DATE NOT NULL DEFAULT '2020-01-01',
+    first_login_date DATE NOT NULL DEFAULT '2020-01-01',
+    group_code INT NOT NULL,
+    group_id INT NOT NULL
+)
+PARTITION BY RANGE (group_id)(
+    PARTITION part0 VALUES LESS THAN (10),
+    PARTITION part1 VALUES LESS THAN (20),
+    PARTITION part2 VALUES LESS THAN (30),
+    PARTITION part3 VALUES LESS THAN (40)
 );
-
-CREATE TABLE salary (
-  salaryid int primary key,
-  count varchar(50),
-  userid int
-);
-
-insert users values (1, 'lisi', '18576485247', 'Shanghai'),(2, 'wangwu', '18576485256', 'Beijin');
-insert salary values(1, '100', 1), (2, '200', 2);
-
-# 默认情况下，创建的视图的字段名称和数据表的字段名称一样，也可以在创建视图时为视图指定字段名称
-# create or replace：视图不存在时创建，视图存在时则更新
-create or replace view view_users_salary (userid, username, count) as 
-select users.userid, users.username, salary.count from users join salary using (userid);
-
-# 查看创建的视图
-select * from view_users_salary;
-
-# 使用alter更新视图
-alter view users_salary (userid, username, phonenum, count) as 
-select users.userid, users.username, users.phonenum, salary.count from users join salary using (userid);
 </code></pre>
-<h4 id="_5">查看视图</h4>
-<p>查看视图：</p>
-<pre><code class="language-sql"># 查看当前数据库下的数据表和视图
-# 注意：MySQL中不支持使用SHOW VIEWS语句查看视图
-show tables;
-
-# 查看视图的详细信息，主要是列信息
-describe view_name;
-desc view_name;
-
-# 查看视图的统计信息
-# Comment属性值为VIEW，说明查看的是视图
-show table status like 'view_name';
-
-# 查看视图的创建语句
-SHOW CREATE VIEW 'view_name';
-
-# MySQL会将视图信息存储到information_schema数据库下的views数据表
-SELECT * FROM information_schema.views;
+<p>在MySQL中，可以通过查看information_schema数据库的partitions数据表来查看分区表的数据分布：</p>
+<pre><code class="language-sql">SELECT partition_name part, partition_expression expr, 
+     partition_description part_desc, table_rows
+FROM information_schema.partitions 
+WHERE table_schema = schema() AND table_name = 't_members';
 </code></pre>
-<h4 id="_6">删除视图</h4>
-<p>删除视图：</p>
-<pre><code class="language-sql">DROP VIEW [IF EXISTS]
-    view_name [, view_name] ...
-    [RESTRICT | CASCADE]
-</code></pre>
+<p>在创建的分区表中，group_id字段的</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../../java/02_jvm%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7/" class="btn btn-neutral float-left" title="JVM监控工具"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../02_%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%92%8C%E5%87%BD%E6%95%B0/" class="btn btn-neutral float-right" title="存储过程">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../03_%E8%A7%A6%E5%8F%91%E5%99%A8/" class="btn btn-neutral float-left" title="触发器"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../tool/01_mkdocs/" class="btn btn-neutral float-right" title="MkDocs">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -280,10 +228,10 @@ SELECT * FROM information_schema.views;
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../../java/02_jvm%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../03_%E8%A7%A6%E5%8F%91%E5%99%A8/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../02_%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%92%8C%E5%87%BD%E6%95%B0/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../../tool/01_mkdocs/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
