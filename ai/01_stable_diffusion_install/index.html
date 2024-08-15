@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="ZhSMM" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>03 usage - 编程笔记</title>
+    <title>在Windows上安装Stable Diffusion - 编程笔记</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "03 usage";
-        var mkdocs_page_input_path = "tool\\03_usage.md";
+        var mkdocs_page_name = "\u5728Windows\u4e0a\u5b89\u88c5Stable Diffusion";
+        var mkdocs_page_input_path = "ai\\01_stable_diffusion_install.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -44,12 +44,22 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">大模型</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../ai/03_cuda%E5%AE%89%E8%A3%85/">安装cuda</a>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../03_cuda%E5%AE%89%E8%A3%85/">安装cuda</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../ai/01_stable_diffusion_install/">在Windows上安装Stable Diffusion</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">在Windows上安装Stable Diffusion</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#comfyui">ComfyUI</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#stable-diffusion">下载Stable Diffusion模型</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">界面说明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#comfyui-manager">ComfyUI Manager</a>
+    </li>
+    </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../ai/02_stable-diffusion-webui/">stable Diffus WebUI</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../02_stable-diffusion-webui/">stable Diffus WebUI</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">java</span></p>
@@ -72,9 +82,9 @@
               </ul>
               <p class="caption"><span class="caption-text">工具</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../01_mkdocs/">MkDocs</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tool/01_mkdocs/">MkDocs</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../02_linux_command/">Linux常用命令</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tool/02_linux_command/">Linux常用命令</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">C++</span></p>
@@ -126,7 +136,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">03 usage</li>
+          <li class="breadcrumb-item">大模型</li>
+      <li class="breadcrumb-item active">在Windows上安装Stable Diffusion</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -135,10 +146,46 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <p>7ED收集了众多资源的加速方式：<a href="https://www.7ed.net/gitmirror/hub.html">https://www.7ed.net/gitmirror/hub.html</a></p>
+                <h1 id="windowsstable-diffusion">在Windows上安装Stable Diffusion</h1>
+<p>在Windows上使用ComfyUI安装Stable Diffusion步骤：</p>
+<ol>
+<li>下载ComfyUI</li>
+<li>下载指定的Stable Diffusion模型</li>
+<li>将模型放入ComfyUI</li>
+<li>运行</li>
+</ol>
+<p>注意事项：运行绘图时，Prompt仅支持输入英文，不支持中文。</p>
+<h4 id="comfyui">ComfyUI</h4>
+<p>Github：<a href="https://github.com/comfyanonymous/ComfyUI">https://github.com/comfyanonymous/ComfyUI</a></p>
+<p><img alt="image-20240809224207803" src="../images/image-20240809224207803.png" /> </p>
+<p>点击如上图所示按钮进行下载，并解压，然后根据机器上是否存在Nvida显卡，再决定是使用run_cpu或run_nvida_gpu，双击执行即可：</p>
+<p><img alt="image-20240809224504931" src="../images/image-20240809224504931.png" /> </p>
+<h4 id="stable-diffusion">下载Stable Diffusion模型</h4>
+<p>1、Stable Diffusion XL Base 1.0：基础模型，<a href="https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/tree/main">https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/tree/main</a></p>
+<p><img alt="image-20240809224818606" src="../images/image-20240809224818606.png" /> </p>
+<p>2、Stable Diffusion XL Refiner 1.0：<a href="https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/tree/main">https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/tree/main</a></p>
+<p><img alt="image-20240809225227433" src="../images/image-20240809225227433.png" /> </p>
+<p>3、SDXL-VAE：<a href="https://huggingface.co/stabilityai/sdxl-vae/tree/main">https://huggingface.co/stabilityai/sdxl-vae/tree/main</a></p>
+<p><img alt="image-20240809225351029" src="../images/image-20240809225351029.png" /> </p>
+<p>上述三个模型下载完成后，分别放置到上面ComfyUI解压目录的如下目录：</p>
+<ul>
+<li>base、refiner以及后续其他模型：…\ComfyUI_windows_portable\ComfyUI\models\checkpoints</li>
+<li>vae：…\ComfyUI_windows_portable\ComfyUI\models\vae</li>
+</ul>
+<h4 id="_1">界面说明</h4>
+<p>执行ComfyUI下面的run_nvida_gpu.bat，然后打开浏览器访问 <a href="http://127.0.0.1:8188/">http://127.0.0.1:8188/</a>，界面如下：</p>
+<p><img alt="image-20240809230208549" src="../images/image-20240809230208549.png" /> </p>
+<p>注意：执行过程中被绿色框起来的代表执行到了这一步。</p>
+<h4 id="comfyui-manager">ComfyUI Manager</h4>
+<p>Github网址：<a href="https://github.com/ltdrdata/ComfyUI-Manager">https://github.com/ltdrdata/ComfyUI-Manager</a></p>
+<p>安装：在ComfyUI/custom_nodes目录下，执行 <code>git clone https://github.com/ltdrdata/ComfyUI-Manager.git</code> 并重启 ComfyUI</p>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../03_cuda%E5%AE%89%E8%A3%85/" class="btn btn-neutral float-left" title="安装cuda"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../02_stable-diffusion-webui/" class="btn btn-neutral float-right" title="stable Diffus WebUI">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -161,6 +208,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../03_cuda%E5%AE%89%E8%A3%85/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../02_stable-diffusion-webui/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

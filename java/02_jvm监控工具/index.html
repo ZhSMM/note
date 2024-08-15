@@ -43,6 +43,15 @@
                 <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
                 </li>
               </ul>
+              <p class="caption"><span class="caption-text">大模型</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ai/03_cuda%E5%AE%89%E8%A3%85/">安装cuda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ai/01_stable_diffusion_install/">在Windows上安装Stable Diffusion</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ai/02_stable-diffusion-webui/">stable Diffus WebUI</a>
+                  </li>
+              </ul>
               <p class="caption"><span class="caption-text">java</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../01_java%E5%9F%BA%E7%A1%80/">基础</a>
@@ -54,6 +63,10 @@
     <li class="toctree-l2"><a class="reference internal" href="#jstat">jstat</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#jinfo">jinfo</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#jmap">jmap</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#jhat">jhat</a>
     </li>
     </ul>
                   </li>
@@ -236,6 +249,272 @@ jstat [ option vmid [interval[s|ms] [count]] ]
 </tr>
 </tbody>
 </table>
+<p>查看类装载信息：</p>
+<p><img alt="image-20240801185705390" src="../images/image-20240801185705390.png" /> </p>
+<p>输出字段说明：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Loaded</td>
+<td>加载class的数量</td>
+</tr>
+<tr>
+<td>Bytes（从左往右数第一个Bytes）</td>
+<td>所占用空间大小</td>
+</tr>
+<tr>
+<td>Unloaded</td>
+<td>未加载数量</td>
+</tr>
+<tr>
+<td>Bytes（从左往右数第二个Bytes）</td>
+<td>未加载占用空间</td>
+</tr>
+<tr>
+<td>Times</td>
+<td>装载所耗的时间</td>
+</tr>
+</tbody>
+</table>
+<p>查看编译信息：</p>
+<p><img alt="image-20240801185851739" src="../images/image-20240801185851739.png" /> </p>
+<p>输出字段说明：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compiled</td>
+<td>编译数量</td>
+</tr>
+<tr>
+<td>Failed</td>
+<td>编译失败数量</td>
+</tr>
+<tr>
+<td>Invilid</td>
+<td>不可用数量</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>编译时间</td>
+</tr>
+<tr>
+<td>FailedTypes</td>
+<td>失败类型</td>
+</tr>
+<tr>
+<td>FailedMethod</td>
+<td>失败的方法</td>
+</tr>
+</tbody>
+</table>
+<p>查看已经被JIT编译过方法：</p>
+<p><img alt="image-20240801190213504" src="../images/image-20240801190213504.png" /> </p>
+<p>参数说明：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compiled</td>
+<td>最近编译方法的数量</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>最近编译方法的字节码数量</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>最近编译方法的编译类型</td>
+</tr>
+<tr>
+<td>Method</td>
+<td>方法名标识</td>
+</tr>
+</tbody>
+</table>
+<p>查看垃圾回收信息：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S0C</td>
+<td>Survivor0的大小</td>
+</tr>
+<tr>
+<td>S1C</td>
+<td>Survivor1的大小</td>
+</tr>
+<tr>
+<td>S0U</td>
+<td>Survivor0区已使用空间大小</td>
+</tr>
+<tr>
+<td>S1U</td>
+<td>Survivor1区已使用空间大小</td>
+</tr>
+<tr>
+<td>EC</td>
+<td>Eden区的大小</td>
+</tr>
+<tr>
+<td>EU</td>
+<td>Eden区已使用的空间大小</td>
+</tr>
+<tr>
+<td>OC</td>
+<td>老年代（Old）区的大小</td>
+</tr>
+<tr>
+<td>OU</td>
+<td>老年代区已使用空间大小</td>
+</tr>
+<tr>
+<td>MC</td>
+<td>方法区大小</td>
+</tr>
+<tr>
+<td>MU</td>
+<td>方法区已使用空间大小</td>
+</tr>
+<tr>
+<td>CCSC</td>
+<td>压缩类空间大小</td>
+</tr>
+<tr>
+<td>CCSU</td>
+<td>压缩类空间已使用大小</td>
+</tr>
+<tr>
+<td>YGC</td>
+<td>年轻代垃圾回收次数，YGC表示Young GC</td>
+</tr>
+<tr>
+<td>YGCT</td>
+<td>年轻代垃圾回收总耗时</td>
+</tr>
+<tr>
+<td>FGC</td>
+<td>老年代垃圾回收次数，FGC表示Full GC</td>
+</tr>
+<tr>
+<td>FGCT</td>
+<td>老年代来及回收总耗时</td>
+</tr>
+<tr>
+<td>GCT</td>
+<td>垃圾回收总消耗时间</td>
+</tr>
+<tr>
+<td>NGCMN</td>
+<td>新生代最小容量</td>
+</tr>
+<tr>
+<td>NGCMX</td>
+<td>新生代最大容量</td>
+</tr>
+<tr>
+<td>NGC</td>
+<td>当前新生代容量</td>
+</tr>
+<tr>
+<td>OGCMN</td>
+<td>老年代最小容量</td>
+</tr>
+<tr>
+<td>OGCMX</td>
+<td>老年代最大容量</td>
+</tr>
+<tr>
+<td>OGC</td>
+<td>当前老年代容量</td>
+</tr>
+<tr>
+<td>MCMN</td>
+<td>方法区最小容量</td>
+</tr>
+<tr>
+<td>MCMX</td>
+<td>方法区最大容量</td>
+</tr>
+<tr>
+<td>CCSMN</td>
+<td>压缩类空间最小容量</td>
+</tr>
+<tr>
+<td>CCSMX</td>
+<td>压缩类空间最大容量</td>
+</tr>
+<tr>
+<td>S0</td>
+<td>Survivor0区</td>
+</tr>
+<tr>
+<td>S1</td>
+<td>Survivor1区</td>
+</tr>
+<tr>
+<td>E</td>
+<td>Eden区</td>
+</tr>
+<tr>
+<td>O</td>
+<td>老年代</td>
+</tr>
+<tr>
+<td>M</td>
+<td>方法区</td>
+</tr>
+<tr>
+<td>CCS</td>
+<td>压缩类</td>
+</tr>
+<tr>
+<td>TT</td>
+<td>对象在新生代存活的次数</td>
+</tr>
+<tr>
+<td>MTT</td>
+<td>对象在新生代存活的最大次数</td>
+</tr>
+<tr>
+<td>DSS</td>
+<td>期望的一个Survivor区的大小</td>
+</tr>
+<tr>
+<td>S0CMX</td>
+<td>Survivor0区最大容量</td>
+</tr>
+<tr>
+<td>S1CMX</td>
+<td>Survivor1区最大容量</td>
+</tr>
+<tr>
+<td>ECMX</td>
+<td>Eden区最大容量</td>
+</tr>
+</tbody>
+</table>
 <p>jstat -gc输出内容说明：</p>
 <p><img alt="image-20240731234210145" src="../images/image-20240731234210145.png" />  </p>
 <p>2个Survivor区（S0、S1，表示Survivor0、Survivor1）、新生代Eden区（E，表示Eden）是空的，老年代(O，表示Old)和元空间（M，表示Metaspace，在jdk1.7之前为永久代P，表示Permanent）分别使用了88.06%和99.29%的空间。程序运行以来共发生Minor GC（YGC，表示Young GC）810次，总耗时1.919秒；发生Full GC（FGC，表示Full GC）1760次，总耗时（FGCT，表示Full GC Time）为96.595秒；所有GC总耗时（GCT，表示GC Time）为90.616。</p>
@@ -278,6 +557,60 @@ jinfo -flags PID
 # -sysprops：以键值对的方式显示当前Java虚拟机的全部的系统属性
 jinfo -sysprops PID
 </code></pre>
+<h4 id="jmap">jmap</h4>
+<p>jmap：Memory Map for Java，一般用于生成堆转储快照（一般称为heapdump或dump文件）。其他生成转储文件的方式：</p>
+<ul>
+<li><code>-XX:+HeapDumpOnOutOfMemoryError</code>：可以让虚拟机在内存溢出异常出现之后自动生成堆转储快照文件</li>
+<li><code>-XX:+HeapDumpOnCtrlBreak</code>：参数则可以使用[Ctrl]+[Break]键让虚拟机生成堆转储快照文件</li>
+<li><code>-XX:+HeapDumpBeforeFullGC</code>与<code>-XX:+HeapDumpAfterFullGC</code>：在Full GC前后自动生成Dump文件</li>
+<li><code>-XX:+HeapDumpOnOutOfMemoryError</code>：在产生OOM异常时自动生成dump文件</li>
+<li>在Linux系统下通过<code>Kill -3</code>命令发送进程退出信号</li>
+</ul>
+<p>jmap还可以查询finalize执行队列、Java堆和方法区的详细信息，如空间使用率、当前用的是哪种收集器等。命令格式如下：</p>
+<pre><code class="language-sh">jmap [ option ] vmid
+</code></pre>
+<p>option参数说明：</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-dump</td>
+<td>生成java堆转储快照。格式为：<code>-dump:[live,]format=b,file=&lt;filename&gt;</code>，其中live子参数说明是否只dump出存活对象</td>
+</tr>
+<tr>
+<td>-finalizerinfo</td>
+<td>显示在F-Queue中等待Finalizer线程执行finalize方法的对象</td>
+</tr>
+<tr>
+<td>-heap</td>
+<td>显示java堆详细信息，如使用哪种回收器、参数配置、分代状况等</td>
+</tr>
+<tr>
+<td>-histo</td>
+<td>显示堆中对象统计信息，包括类、实例数量、合计容量</td>
+</tr>
+<tr>
+<td>-clstats</td>
+<td>以ClassLoader为统计入口</td>
+</tr>
+<tr>
+<td>-F</td>
+<td>当虚拟机进程对 -dump 没有响应时，可使用这个选项强制生产dump快照</td>
+</tr>
+</tbody>
+</table>
+<p>注意事项：</p>
+<ol>
+<li>由于jmap将访问堆中的所有对象，为了保证在此过程中不被应用线程干扰，<code>jmap</code>需要借助安全点机制，让所有线程停留在不改变堆中数据的状态。如果某个线程长时间无法跑到安全点，则jmap会一直等待（jstat是直接读取垃圾回收器在固定位置的数据，不会等待）。</li>
+<li><code>jmap</code>、<code>jinfo</code>、<code>jstack</code>和<code>jcmd</code>依赖于Java虚拟机的Attach API，因此只能监控本地Java进程。在开启Java虚拟机参数 <code>-XX:+DisableAttachMechanism</code> 后，基于Attach API的命令将无法执行。</li>
+</ol>
+<h4 id="jhat">jhat</h4>
+<p>jhat：JVM Heap Analysis Tool，与jmap搭配使用，用于分析jmap生成的转储文件。jhat内置了一个微型的HTTP/Web服务器，生成堆转储快照的分析结果后，可以在浏览器中查看。</p>
               
             </div>
           </div><footer>

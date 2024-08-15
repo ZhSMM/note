@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="ZhSMM" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>03 usage - 编程笔记</title>
+    <title>安装cuda - 编程笔记</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "03 usage";
-        var mkdocs_page_input_path = "tool\\03_usage.md";
+        var mkdocs_page_name = "\u5b89\u88c5cuda";
+        var mkdocs_page_input_path = "ai\\03_cuda\u5b89\u88c5.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -44,12 +44,14 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">大模型</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../ai/03_cuda%E5%AE%89%E8%A3%85/">安装cuda</a>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">安装cuda</a>
+    <ul class="current">
+    </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../ai/01_stable_diffusion_install/">在Windows上安装Stable Diffusion</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../01_stable_diffusion_install/">在Windows上安装Stable Diffusion</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../ai/02_stable-diffusion-webui/">stable Diffus WebUI</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../02_stable-diffusion-webui/">stable Diffus WebUI</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">java</span></p>
@@ -72,9 +74,9 @@
               </ul>
               <p class="caption"><span class="caption-text">工具</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../01_mkdocs/">MkDocs</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tool/01_mkdocs/">MkDocs</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../02_linux_command/">Linux常用命令</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tool/02_linux_command/">Linux常用命令</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">C++</span></p>
@@ -126,7 +128,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">03 usage</li>
+          <li class="breadcrumb-item">大模型</li>
+      <li class="breadcrumb-item active">安装cuda</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -135,10 +138,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <p>7ED收集了众多资源的加速方式：<a href="https://www.7ed.net/gitmirror/hub.html">https://www.7ed.net/gitmirror/hub.html</a></p>
+                <h1 id="windowscuda">Windows上安装CUDA</h1>
+<p>在Windows上安装CUDA：</p>
+<p>1、根据显卡型号更新显卡驱动：<a href="https://www.nvidia.cn/drivers/lookup/">https://www.nvidia.cn/drivers/lookup/</a></p>
+<p><img alt="image-20240810164726532" src="../images/image-20240810164726532.png" /> </p>
+<p>2、在cmd窗口输入<code>nvidia-smi</code>，其中CUDA Version表示当前驱动支持的最新版本：</p>
+<p><img alt="image-20240810165026673" src="../images/image-20240810165026673.png" /> </p>
+<p>3、进入CUDA下载页面，下载小于等于上述显示版本的CUDA：<a href="https://developer.nvidia.com/cuda-toolkit-archive">https://developer.nvidia.com/cuda-toolkit-archive</a></p>
+<p><img alt="image-20240810171018208" src="../images/image-20240810171018208.png" /> </p>
+<p>并跟据操作系统和架构选择对应的安装包下载安装：</p>
+<p><img alt="image-20240810171114654" src="../images/image-20240810171114654.png" /> </p>
+<p>在cmd窗口输入<code>systeminfo</code>可以查看操作系统的架构：</p>
+<p><img alt="image-20240810171359972" src="../images/image-20240810171359972.png" /> </p>
+<p>4、在cmd窗口输入<code>nvcc -V</code>，如果正常输出版本号则安装成功：</p>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../.." class="btn btn-neutral float-left" title="首页"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../01_stable_diffusion_install/" class="btn btn-neutral float-right" title="在Windows上安装Stable Diffusion">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -161,6 +180,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../.." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../01_stable_diffusion_install/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
