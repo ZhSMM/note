@@ -6,6 +6,10 @@ theme: readthedocs
 
 nav:
   - 首页: index.md
+  - 大模型:
+    - 安装cuda: "ai/03_cuda安装.md"
+    - 在Windows上安装Stable Diffusion: "ai/01_stable_diffusion_install.md"
+    - stable Diffus WebUI: "ai/02_stable-diffusion-webui.md"
   - java:
     - 基础: "java/01_java基础.md"
     - JVM监控工具: "java/02_jvm监控工具.md"

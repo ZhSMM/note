@@ -59,6 +59,98 @@ option表示希望查询的虚拟机信息，主要分为三类：类装载、�
 | -compiler         | 输出JIT编译器编译过的方法、耗时等信息                        |
 | -printcompilation | 输出已经被JIT编译的方法                                      |
 
+查看类装载信息：
+
+![image-20240801185705390](images/image-20240801185705390.png) 
+
+输出字段说明：
+
+| 参数                           | 说明            |
+| ------------------------------ | --------------- |
+| Loaded                         | 加载class的数量 |
+| Bytes（从左往右数第一个Bytes） | 所占用空间大小  |
+| Unloaded                       | 未加载数量      |
+| Bytes（从左往右数第二个Bytes） | 未加载占用空间  |
+| Times                          | 装载所耗的时间  |
+
+查看编译信息：
+
+![image-20240801185851739](images/image-20240801185851739.png) 
+
+输出字段说明：
+
+| 参数         | 说明         |
+| ------------ | ------------ |
+| Compiled     | 编译数量     |
+| Failed       | 编译失败数量 |
+| Invilid      | 不可用数量   |
+| Time         | 编译时间     |
+| FailedTypes  | 失败类型     |
+| FailedMethod | 失败的方法   |
+
+
+
+查看已经被JIT编译过方法：
+
+![image-20240801190213504](images/image-20240801190213504.png) 
+
+参数说明：
+
+| 参数     | 说明                     |
+| -------- | ------------------------ |
+| Compiled | 最近编译方法的数量       |
+| Size     | 最近编译方法的字节码数量 |
+| Type     | 最近编译方法的编译类型   |
+| Method   | 方法名标识               |
+
+
+
+查看垃圾回收信息：
+
+| 参数  | 说明                                |
+| ----- | ----------------------------------- |
+| S0C   | Survivor0的大小                     |
+| S1C   | Survivor1的大小                     |
+| S0U   | Survivor0区已使用空间大小           |
+| S1U   | Survivor1区已使用空间大小           |
+| EC    | Eden区的大小                        |
+| EU    | Eden区已使用的空间大小              |
+| OC    | 老年代（Old）区的大小               |
+| OU    | 老年代区已使用空间大小              |
+| MC    | 方法区大小                          |
+| MU    | 方法区已使用空间大小                |
+| CCSC  | 压缩类空间大小                      |
+| CCSU  | 压缩类空间已使用大小                |
+| YGC   | 年轻代垃圾回收次数，YGC表示Young GC |
+| YGCT  | 年轻代垃圾回收总耗时                |
+| FGC   | 老年代垃圾回收次数，FGC表示Full GC  |
+| FGCT  | 老年代来及回收总耗时                |
+| GCT   | 垃圾回收总消耗时间                  |
+| NGCMN | 新生代最小容量                      |
+| NGCMX | 新生代最大容量                      |
+| NGC   | 当前新生代容量                      |
+| OGCMN | 老年代最小容量                      |
+| OGCMX | 老年代最大容量                      |
+| OGC   | 当前老年代容量                      |
+| MCMN  | 方法区最小容量                      |
+| MCMX  | 方法区最大容量                      |
+| CCSMN | 压缩类空间最小容量                  |
+| CCSMX | 压缩类空间最大容量                  |
+| S0    | Survivor0区                         |
+| S1    | Survivor1区                         |
+| E     | Eden区                              |
+| O     | 老年代                              |
+| M     | 方法区                              |
+| CCS   | 压缩类                              |
+| TT    | 对象在新生代存活的次数              |
+| MTT   | 对象在新生代存活的最大次数          |
+| DSS   | 期望的一个Survivor区的大小          |
+| S0CMX | Survivor0区最大容量                 |
+| S1CMX | Survivor1区最大容量                 |
+| ECMX  | Eden区最大容量                      |
+
+
+
 jstat -gc输出内容说明：
 
 ![image-20240731234210145](images/image-20240731234210145.png)  
@@ -123,3 +215,42 @@ jinfo -flags PID
 jinfo -sysprops PID
 ```
 
+
+
+#### jmap
+
+jmap：Memory Map for Java，一般用于生成堆转储快照（一般称为heapdump或dump文件）。其他生成转储文件的方式：
+
++ `-XX:+HeapDumpOnOutOfMemoryError`：可以让虚拟机在内存溢出异常出现之后自动生成堆转储快照文件
++ `-XX:+HeapDumpOnCtrlBreak`：参数则可以使用[Ctrl]+[Break]键让虚拟机生成堆转储快照文件
++ `-XX:+HeapDumpBeforeFullGC`与`-XX:+HeapDumpAfterFullGC`：在Full GC前后自动生成Dump文件
++ `-XX:+HeapDumpOnOutOfMemoryError`：在产生OOM异常时自动生成dump文件
++ 在Linux系统下通过`Kill -3`命令发送进程退出信号
+
+jmap还可以查询finalize执行队列、Java堆和方法区的详细信息，如空间使用率、当前用的是哪种收集器等。命令格式如下：
+
+```sh
+jmap [ option ] vmid
+```
+
+option参数说明：
+
+| 选项           | 作用                                                         |
+| -------------- | ------------------------------------------------------------ |
+| -dump          | 生成java堆转储快照。格式为：`-dump:[live,]format=b,file=<filename>`，其中live子参数说明是否只dump出存活对象 |
+| -finalizerinfo | 显示在F-Queue中等待Finalizer线程执行finalize方法的对象       |
+| -heap          | 显示java堆详细信息，如使用哪种回收器、参数配置、分代状况等   |
+| -histo         | 显示堆中对象统计信息，包括类、实例数量、合计容量             |
+| -clstats       | 以ClassLoader为统计入口                                      |
+| -F             | 当虚拟机进程对 -dump 没有响应时，可使用这个选项强制生产dump快照 |
+
+注意事项：
+
+1. 由于jmap将访问堆中的所有对象，为了保证在此过程中不被应用线程干扰，`jmap`需要借助安全点机制，让所有线程停留在不改变堆中数据的状态。如果某个线程长时间无法跑到安全点，则jmap会一直等待（jstat是直接读取垃圾回收器在固定位置的数据，不会等待）。
+2. `jmap`、`jinfo`、`jstack`和`jcmd`依赖于Java虚拟机的Attach API，因此只能监控本地Java进程。在开启Java虚拟机参数 `-XX:+DisableAttachMechanism` 后，基于Attach API的命令将无法执行。
+
+
+
+#### jhat
+
+jhat：JVM Heap Analysis Tool，与jmap搭配使用，用于分析jmap生成的转储文件。jhat内置了一个微型的HTTP/Web服务器，生成堆转储快照的分析结果后，可以在浏览器中查看。
